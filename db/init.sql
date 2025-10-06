@@ -1,0 +1,50 @@
+-- Init SQL for MySQL (used by docker-entrypoint-initdb.d)
+CREATE DATABASE IF NOT EXISTS iotdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE iotdb;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(100) UNIQUE,
+  password_hash VARCHAR(255),
+  role VARCHAR(20) DEFAULT 'viewer',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS devices (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  device_id VARCHAR(100) UNIQUE,
+  name VARCHAR(100),
+  secret_key BLOB,
+  registered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  last_seen DATETIME NULL
+);
+
+CREATE TABLE IF NOT EXISTS sensor_readings (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  device_id INT,
+  temp FLOAT,
+  humidity FLOAT,
+  soil_moisture FLOAT,
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS actions (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  device_id INT,
+  action_type VARCHAR(50),
+  initiated_by VARCHAR(100),
+  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+  result VARCHAR(255),
+  FOREIGN KEY (device_id) REFERENCES devices(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  refresh_token VARCHAR(255),
+  revoked BOOLEAN DEFAULT FALSE,
+  issued_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  expires_at DATETIME NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
