@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 from django.conf import settings
+from core.models import Device
 from core.models import SensorReading
 
 # Callback quand on se connecte au broker
@@ -14,8 +15,13 @@ def on_message(client, userdata, msg):
     print(f"📩 Reçu sur {msg.topic} : {msg.payload.decode()}")
     try:
         data = json.loads(msg.payload.decode())
+        print("🔍 Données reçues :", data)
+        device_identifier = data.get("device_id")
+        print(f"🔑 Device Primary Key :", {device_identifier})
+        device_obj = Device.objects.get(device_id=device_identifier)
+        print("🔑 Device Object :", {device_obj})
         SensorReading.objects.create(
-            device = data.get("device_id"),
+            device = device_obj ,
             temp=data.get("temperature"),
             humidity=data.get("humidity"),
             timestamp=data.get("timestamp"),

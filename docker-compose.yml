@@ -38,13 +38,15 @@ services:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
-      - ./mosquitto/create_passwd.sh:/create_passwd.sh  
+      - ./mosquitto/create_passwd.sh:/create_passwd.sh
+      - ./mosquitto/certs:/mosquitto/certs 
     environment:
       - MOSQUITTO_USER=${MOSQUITTO_USER:-device1}
       - MOSQUITTO_PASS=${MOSQUITTO_PASS:-devpass}
     command: ["/create_passwd.sh"]  
     ports:
       - "1883:1883"
+      - "8883:8883"   # TLS sécurisé
 
 
 volumes:
