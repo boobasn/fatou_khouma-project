@@ -1,16 +1,9 @@
 #!/bin/sh
-set -e
 
-echo "Creating Mosquitto password file..."
+if [ ! -f /mosquitto/config/passwd ]; then
+  mosquitto_passwd -c -b /mosquitto/config/passwd "$MOSQUITTO_USER" "$MOSQUITTO_PASS"
+else
+  mosquitto_passwd -b /mosquitto/config/passwd "$MOSQUITTO_USER" "$MOSQUITTO_PASS"
+fi
 
-# Créer le dossier si nécessaire
-mkdir -p /mosquitto/config
-
-# Créer le fichier de mot de passe
-mosquitto_passwd -b -c /mosquitto/config/passwd "$MOSQUITTO_USER" "$MOSQUITTO_PASS"
-
-# Donner les bonnes permissions
-chmod 600 /mosquitto/config/passwd
-
-# Lancer Mosquitto
 exec mosquitto -c /mosquitto/config/mosquitto.conf

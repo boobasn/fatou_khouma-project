@@ -1,13 +1,8 @@
 from django.urls import path
-from . import views
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import DeviceViewSet
+from .views import DeviceListCreate, DeviceDetail
 
-router = DefaultRouter()
-router.register(r'devices', DeviceViewSet, basename='device')
 
 urlpatterns = [
-    path('status/', views.status),
-    path('', include(router.urls)),
+    path('devices/', DeviceListCreate.as_view()),
+    path('devices/<int:pk>/', DeviceDetail.as_view()),
 ]

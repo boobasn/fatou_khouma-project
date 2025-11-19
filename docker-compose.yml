@@ -16,6 +16,13 @@ services:
     ports:
       - "3306:3306"
 
+  redis:
+    image: redis:alpine
+    container_name: iot_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
   backend:
     build: ./backend
     container_name: iot_django
@@ -24,30 +31,31 @@ services:
       - .env
     depends_on:
       - db
+      - redis
       - mosquitto
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
-    command: ["./entrypoint.sh"]
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8000", "iotsec.asgi:application"]
 
   mosquitto:
     image: eclipse-mosquitto:latest
     container_name: iot_mosquitto
+    restart: unless-stopped
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
       - ./mosquitto/create_passwd.sh:/create_passwd.sh
-      - ./mosquitto/certs:/mosquitto/certs 
+      - ./mosquitto/certs:/mosquitto/certs
     environment:
-      - MOSQUITTO_USER=${MOSQUITTO_USER:-device1}
-      - MOSQUITTO_PASS=${MOSQUITTO_PASS:-devpass}
-    command: ["/create_passwd.sh"]  
+      MOSQUITTO_USER: ${MOSQUITTO_USER:-device1}
+      MOSQUITTO_PASS: ${MOSQUITTO_PASS:-devpass}
+    command: ["sh", "/create_passwd.sh"]
     ports:
       - "1883:1883"
-      - "8883:8883"   # TLS sécurisé
-
+      - "8883:8883"   # TLS
 
 volumes:
   db_data:
