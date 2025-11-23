@@ -7,7 +7,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-for-dev')
 
 DEBUG = os.getenv('DEBUG','0') == '1'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS','*').split()
+ALLOWED_HOSTS = ['192.168.1.2', 'localhost', '127.0.0.1']
 MQTT_HOST = os.getenv("MQTT_HOST", "localhost")
 MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
 MOSQUITTO_PASS = os.getenv("MOSQUITTO_PASS", "devpass")

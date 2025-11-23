@@ -56,6 +56,20 @@ services:
     ports:
       - "1883:1883"
       - "8883:8883"   # TLS
+  nodered:
+    image: nodered/node-red:latest
+    container_name: iot_nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"         # Interface Node-RED
+    environment:
+      - TZ=Africa/Dakar
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./nodered_data:/data   # Sauvegarde des flows Node-RED
+    # Permet à Node-RED d'accéder au broker interne via: mqtt://mosquitto:1883
 
 volumes:
   db_data:
+  nodered_data:
