@@ -24,6 +24,7 @@ DHT dht(DHTPIN, DHTTYPE);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+
 // =========================================================
 //                CONNECT WIFI
 // =========================================================
@@ -37,7 +38,10 @@ void connectWifi() {
   }
 
   Serial.println("\nWiFi connecté !");
+  Serial.print("Adresse IP : ");
+  Serial.println(WiFi.localIP());   // AFFICHAGE IP ESP32
 }
+
 
 // =========================================================
 //                CONNECT MQTT
@@ -50,23 +54,25 @@ void reconnectMQTT() {
       Serial.println("Connecté !");
     } else {
       Serial.print("Erreur : ");
-      Serial.print(client.state());
+      Serial.println(client.state());
       delay(2000);
     }
   }
 }
+
 
 // =========================================================
 //                SETUP
 // =========================================================
 void setup() {
   Serial.begin(115200);
-
   dht.begin();
   connectWifi();
-
   client.setServer(MQTT_SERVER, MQTT_PORT);
+
+  Serial.println("Initialisation terminée. Début du programme...");
 }
+
 
 // =========================================================
 //                LOOP
@@ -100,7 +106,7 @@ void loop() {
   jsonPayload += "\"soil_moisture\": " + String(soilValue);
   jsonPayload += "}";
 
-  Serial.println("Envoi JSON : " + jsonPayload);
+  Serial.println("Envoi JSON => " + jsonPayload);
 
   client.publish(TOPIC_PUBLISH, jsonPayload.c_str());
 

@@ -402,8 +402,7 @@
                 "651c952eeb59de0b",
                 "11b9c2168cac8753",
                 "f8f0d15b1ab5622d",
-                "cff9e113c1a9b40b",
-                "f3ffd427f078f876"
+                "cff9e113c1a9b40b"
             ],
             [
                 "cff9e113c1a9b40b",
@@ -1152,68 +1151,6 @@
             [
                 "5ccdf6f43df37c5b"
             ]
-        ]
-    },
-    {
-        "id": "f3ffd427f078f876",
-        "type": "ui-chart",
-        "z": "66b880286e7f8bac",
-        "group": "0224e4e0967ce3bb",
-        "name": "",
-        "label": "chart",
-        "order": 6,
-        "chartType": "line",
-        "category": "temp",
-        "categoryType": "msg",
-        "xAxisLabel": "",
-        "xAxisProperty": "",
-        "xAxisPropertyType": "property",
-        "xAxisType": "time",
-        "xAxisFormat": "",
-        "xAxisFormatType": "auto",
-        "xmin": "",
-        "xmax": "",
-        "yAxisLabel": "",
-        "yAxisProperty": "",
-        "yAxisPropertyType": "property",
-        "ymin": "0",
-        "ymax": "100",
-        "bins": 10,
-        "action": "append",
-        "stackSeries": false,
-        "pointShape": "circle",
-        "pointRadius": 4,
-        "showLegend": true,
-        "removeOlder": 1,
-        "removeOlderUnit": "1",
-        "removeOlderPoints": "",
-        "colors": [
-            "#0095ff",
-            "#ff0000",
-            "#ff7f0e",
-            "#2ca02c",
-            "#a347e1",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
-        ],
-        "textColor": [
-            "#666666"
-        ],
-        "textColorDefault": true,
-        "gridColor": [
-            "#e5e5e5"
-        ],
-        "gridColorDefault": true,
-        "width": "5",
-        "height": "3",
-        "className": "",
-        "interpolation": "linear",
-        "x": 950,
-        "y": 260,
-        "wires": [
-            []
         ]
     }
 ]
