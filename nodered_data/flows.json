@@ -1,5 +1,19 @@
 [
     {
+        "id": "2a80d6ad77e1e6b8",
+        "type": "tls-config",
+        "name": "Accept Self-Signed",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
         "id": "66b880286e7f8bac",
         "type": "tab",
         "label": "Flux 1",
@@ -42,8 +56,8 @@
     {
         "id": "7dfc78acb2121d66",
         "type": "websocket-client",
-        "path": "ws://backend:8000/ws/sensor/",
-        "tls": "",
+        "path": "wss://nginx/ws/sensor/",
+        "tls": "2a80d6ad77e1e6b8",
         "wholemsg": "true",
         "hb": "0",
         "subprotocol": "",
@@ -347,6 +361,20 @@
         "key": "",
         "ca": "",
         "certname": "cert.pem",
+        "keyname": "",
+        "caname": "cert.pem",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "8ea7b9e93c419fb5",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "cert.pem",
         "keyname": "key.pem",
         "caname": "cert.pem",
         "servername": "",
@@ -360,7 +388,7 @@
         "name": "",
         "server": "",
         "client": "7dfc78acb2121d66",
-        "x": 160,
+        "x": 140,
         "y": 220,
         "wires": [
             [

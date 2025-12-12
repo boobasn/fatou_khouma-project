@@ -42,8 +42,8 @@
     {
         "id": "7dfc78acb2121d66",
         "type": "websocket-client",
-        "path": "ws://192.168.1.15:8000/ws/sensor/",
-        "tls": "",
+        "path": "wss://backend:8000/ws/sensor/",
+        "tls": "f0af26bcfbbc61da",
         "wholemsg": "true",
         "hb": "0",
         "subprotocol": "",
@@ -347,6 +347,20 @@
         "key": "",
         "ca": "",
         "certname": "cert.pem",
+        "keyname": "",
+        "caname": "cert.pem",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "8ea7b9e93c419fb5",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "cert.pem",
         "keyname": "key.pem",
         "caname": "cert.pem",
         "servername": "",
@@ -360,7 +374,7 @@
         "name": "",
         "server": "",
         "client": "7dfc78acb2121d66",
-        "x": 150,
+        "x": 140,
         "y": 220,
         "wires": [
             [
